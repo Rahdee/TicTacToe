@@ -20,7 +20,7 @@ namespace TicTacToeSubmissionConole
             Console.ForegroundColor = oldColor ;
 
 
-            Console.SetCursorPosition(20, 25);
+            Console.SetCursorPosition(20, 30);
             Console.WriteLine("Thank you for playing");
             Console.ReadLine();
         }
