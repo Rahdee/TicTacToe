@@ -50,10 +50,6 @@ namespace TicTacToeSubmissionConole
 
         }
 
-        //   public bool CheckIfPlayerWins(PlayerEnum player)
-        // {
-        //       int playerValue = (int)player;
-
         public bool CheckIfPlayerWins(PlayerEnum player)
         {
             int playerValue = (int)player;
