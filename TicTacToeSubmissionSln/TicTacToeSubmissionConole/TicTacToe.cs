@@ -9,131 +9,110 @@ namespace TicTacToeSubmissionConole
     public class TicTacToe
     {
         private TicTacToeConsoleRenderer _boardRenderer;
-        private int[] _boardPositions = new int[9];
+        private int[] _boardPositions = new int[] {2, 3, 4, 5, 6, 7, 8, 9, 10};
         private int _rounds;
-
         public TicTacToe()
         {
-            _boardRenderer = new TicTacToeConsoleRenderer(10, 6);
+            _boardRenderer = new TicTacToeConsoleRenderer(10,6);
             _boardRenderer.Render();
         }
 
-        // I really don't like this int design decision we made.  int doesn't look good.  Next class we can change to an enum
-        private void PlayerMove(playerEnum player)
+        private void PlayMove(PlayerEnum player)
         {
-            // This method needs error handling as it accepts incorrect input from user
-            // We can revist this also in the Exception Handling class and gracefully recover from errors.
-
-
-            // FOR ILLUSTRATION CHANGE TO YOUR OWN LOGIC TO DO TIC TAC TOE
-            // ask user for row and column
-
-
             Console.SetCursorPosition(2, 19);
 
-                
-                if (player == PlayerEnum.O)
+            if (player == PlayerEnum.X)
+                Console.Write("Player X");
+            else
+                Console.Write("Player O");
 
-                    Console.Write("Player X");
-                else
-                    Console.Write("Player O");
+            Console.SetCursorPosition(2, 20);
+            Console.Write("  ");
+            Console.SetCursorPosition(2, 20);
+            Console.WriteLine("Please Enter Row: ");
+            var row = Console.ReadLine();
 
-                Console.SetCursorPosition(2, 20);
-                Console.WriteLine("Please Enter Row");
+            Console.SetCursorPosition(2, 21);
 
-                var row = Console.ReadLine();
-
-                Console.SetCursorPosition(2, 22);
-                Console.Write("Please Enter Column: ");
-
-                var column = Console.ReadLine();
-
-            public void Run();
+            Console.Write(" ");
+            Console.SetCursorPosition(2, 21);
+            Console.Write("Please Enter Column: ");
             var column = Console.ReadLine();
 
+            int rowNumber = int.Parse(row);
+            int columnNumber = int.Parse(column);
+            int arrayPos = (rowNumber * 3) + columnNumber;
 
+            _boardPositions[arrayPos] = (int)player;
+           _boardRenderer.AddMove(rowNumber, columnNumber, player, true);
+        }
 
-                public void Run();
-            var column = Console.ReadLine();
-
-                // THIS JUST DRAWS THE BOARD (NO TIC TAC TOE LOGIC)
-                _boardRenderer.AddMove(int.Parse(row), int.Parse(column), PlayerEnum.X, true);
-
-                // store move in array
-                int rowNumber = int.Parse(
-                    row);
-                int columnNumber = int.Parse(column);
-                int arrayPos = (rowNumber * 3) + columnNumber;
-
-                _boardPositions[arrayPos] = player;
-
-                //  add move to the board
-                if (player == 1)
-                    _boardRenderer.AddMove(rowNumber, columnNumber, PlayerEnum.X, true);
-                else
-                    _boardRenderer.AddMove(rowNumber, columnNumber, PlayerEnum.O, true);
-
-            
-        }   // I really don't like this int design decision we made.  int doesn't look good.  Next class we can change to an enum
-        public bool CheckIfPlayerWins(int player)
+        public bool CheckIfPlayerWins(PlayerEnum player)
         {
-            if ((_boardPositions[0] == player) && (_boardPositions[1] == player) && (_boardPositions[2] == player))
-                return true;
+            int playerValue = (int)player;
 
-            if ((_boardPositions[0] == player) && (_boardPositions[4] == player) && (_boardPositions[8] == player))
+            if ((_boardPositions[0] == playerValue) && (_boardPositions[1] == playerValue) && (_boardPositions[2] == playerValue))
+            {
                 return true;
+            }
 
-            if ((_boardPositions[3] == player) && (_boardPositions[4] == player) && (_boardPositions[5] == player))
+            if ((_boardPositions[0] == playerValue) && (_boardPositions[4] == playerValue) && (_boardPositions[8] == playerValue))
+            {
                 return true;
+            }
 
-            if ((_boardPositions[6] == player) && (_boardPositions[7] == player) && (_boardPositions[8] == player))
+            if ((_boardPositions[3] == playerValue) && (_boardPositions[4] == playerValue) && (_boardPositions[5] == playerValue))
+            {
                 return true;
+            }
 
-            if ((_boardPositions[0] == player) && (_boardPositions[3] == player) && (_boardPositions[6] == player))
+            if ((_boardPositions[6] == playerValue) && (_boardPositions[7] == playerValue) && (_boardPositions[8] == playerValue))
+            {
                 return true;
+            }
 
-            if ((_boardPositions[2] == player) && (_boardPositions[5] == player) && (_boardPositions[8] == player))
+            if ((_boardPositions[0] == playerValue) && (_boardPositions[3] == playerValue) && (_boardPositions[6] == playerValue))
+            {
                 return true;
+            }
 
-            if ((_boardPositions[0] == player) && (_boardPositions[4] == player) && (_boardPositions[8] == player))
+            if ((_boardPositions[2] == playerValue) && (_boardPositions[5] == playerValue) && (_boardPositions[8] == playerValue))
+            {
                 return true;
+            }
 
-            if ((_boardPositions[2] == player) && (_boardPositions[4] == player) && (_boardPositions[6] == player))
+            if ((_boardPositions[0] == playerValue) && (_boardPositions[4] == playerValue) && (_boardPositions[8] == playerValue))
+            {
                 return true;
+            }
+
+            if ((_boardPositions[2] == playerValue) && (_boardPositions[4] == playerValue) && (_boardPositions[6] == playerValue))
+            {
+                return true;
+            }
 
             return false;
         }
-
         public void Run()
         {
-            _rounds = 0;
+            int _rounds = 0;
             bool playerXWins = false;
             bool playerOWins = false;
 
             while (_rounds < 4)
             {
-
-                //Change to Enum
-                PlayerMove(playerEnum (1));
-
-                //Change to Enum
-                playerXWins = CheckIfPlayerWins(1);
+                PlayMove(PlayerEnum.X);
+                playerXWins = CheckIfPlayerWins(PlayerEnum.X);
 
                 if (playerXWins)
                 {
                     Console.WriteLine("Player X Wins!!!");
 
                     break;
-
                 }
 
-
-                // play o
-
-                //Change to Enum
-                PlayerMove(playerEnum(2));
-                //Change to Enum
-                playerOWins = CheckIfPlayerWins(2);
+                PlayMove(PlayerEnum.O);
+                playerOWins = CheckIfPlayerWins(PlayerEnum.O);
 
                 if (playerOWins)
                 {
@@ -141,21 +120,10 @@ namespace TicTacToeSubmissionConole
 
                     break;
                 }
-                // checkif x won
-
-                // if x won, exit
-
-                // check if o won 
-
-                // if o won exit
-
                 _rounds++;
             }
-        
             if (!playerXWins && !playerOWins)
-                Console.WriteLine("The game is draw!");
+                Console.WriteLine("The game is tied!");
         }
-
     }
-}
-    
+}               
