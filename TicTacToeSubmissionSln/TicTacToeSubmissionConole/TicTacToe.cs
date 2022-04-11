@@ -48,26 +48,19 @@ namespace TicTacToeSubmissionConole
 
                 var column = Console.ReadLine();
 
-            public void Run();
-            var column = Console.ReadLine();
-
-
-
                 public void Run();
-            var column = Console.ReadLine();
+                var column = Console.ReadLine();
 
-                // THIS JUST DRAWS THE BOARD (NO TIC TAC TOE LOGIC)
-                _boardRenderer.AddMove(int.Parse(row), int.Parse(column), PlayerEnum.X, true);
+                int rowNumber = int.Parse(row);
 
-                // store move in array
-                int rowNumber = int.Parse(
-                    row);
                 int columnNumber = int.Parse(column);
+
                 int arrayPos = (rowNumber * 3) + columnNumber;
 
-                _boardPositions[arrayPos] = player;
+                _boardPositions[arrayPos] = (int) player;
 
                 //  add move to the board
+
                 if (player == 1)
                     _boardRenderer.AddMove(rowNumber, columnNumber, PlayerEnum.X, true);
                 else
@@ -75,7 +68,7 @@ namespace TicTacToeSubmissionConole
 
             
         }   // I really don't like this int design decision we made.  int doesn't look good.  Next class we can change to an enum
-        public bool CheckIfPlayerWins(int player)
+        public bool CheckIfPlayerWins(PlayerEnum player)
         {
             if ((_boardPositions[0] == player) && (_boardPositions[1] == player) && (_boardPositions[2] == player))
                 return true;
@@ -112,28 +105,22 @@ namespace TicTacToeSubmissionConole
 
             while (_rounds < 4)
             {
+                // play X
 
-                //Change to Enum
-                PlayerMove(playerEnum (1));
-
-                //Change to Enum
-                playerXWins = CheckIfPlayerWins(1);
+                PlayerMove(playerEnum.X);
+                playerXWins = CheckIfPlayerWins(PlayerEnum.X);
 
                 if (playerXWins)
                 {
                     Console.WriteLine("Player X Wins!!!");
 
                     break;
-
                 }
 
+                // play O
 
-                // play o
-
-                //Change to Enum
-                PlayerMove(playerEnum(2));
-                //Change to Enum
-                playerOWins = CheckIfPlayerWins(2);
+                PlayerMove(playerEnum.O);
+                playerOWins = CheckIfPlayerWins(PlayerEnum.O); ;
 
                 if (playerOWins)
                 {
@@ -141,21 +128,13 @@ namespace TicTacToeSubmissionConole
 
                     break;
                 }
-                // checkif x won
-
-                // if x won, exit
-
-                // check if o won 
-
-                // if o won exit
-
+               
                 _rounds++;
             }
         
             if (!playerXWins && !playerOWins)
                 Console.WriteLine("The game is draw!");
         }
-
     }
 }
     
